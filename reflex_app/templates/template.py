@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from reflex_app import styles
-from reflex_app.components.sidebar import sidebar
+
 from typing import Callable
 
 import reflex as rx
@@ -30,40 +30,6 @@ def menu_item_link(text, href):
             "background_color": styles.accent_text_color,
         },
     )
-
-
-def menu_button() -> rx.Component:
-    """The menu button on the top right of the page.
-
-    Returns:
-        The menu button component.
-    """
-    from reflex.page import get_decorated_pages
-
-    return rx.box(
-        rx.menu.root(
-            rx.menu.trigger(
-                rx.button(
-                    rx.icon("menu"),
-                    variant="soft",
-                )
-            ),
-            rx.menu.content(
-                *[
-                    menu_item_link(page["title"], page["route"])
-                    for page in get_decorated_pages()
-                ],
-                rx.menu.separator(),
-                menu_item_link("About", "https://github.com/reflex-dev"),
-                menu_item_link("Contact", "mailto:founders@=reflex.dev"),
-            ),
-        ),
-        position="fixed",
-        right="2em",
-        top="2em",
-        z_index="500",
-    )
-
 
 class ThemeState(rx.State):
     """The state for the theme of the app."""
@@ -109,17 +75,13 @@ def template(
 
         def templated_page():
             return rx.hstack(
-                sidebar(),
                 rx.box(
                     rx.vstack(
                         page_content(),
-                        rx.spacer(),
-                        rx.logo(),
                         **styles.template_content_style,
                     ),
                     **styles.template_page_style,
                 ),
-                menu_button(),
                 align="start",
                 background=f"radial-gradient(circle at top right, {rx.color('accent', 2)}, {rx.color('mauve', 1)});",
                 position="relative",
