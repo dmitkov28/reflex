@@ -1,6 +1,7 @@
 """Common templates used between pages in the app."""
 
 from __future__ import annotations
+import datetime
 
 from reflex_app import styles
 
@@ -60,7 +61,7 @@ def template(
     Returns:
         The template with the page content.
     """
-
+    
     def decorator(page_content: Callable[[], rx.Component]) -> rx.Component:
         """The template for each page of the app.
 
@@ -81,6 +82,7 @@ def template(
                         **styles.template_content_style,
                     ),
                     **styles.template_page_style,
+                    class_name="max-w-full"
                 ),
                 align="start",
                 background=f"radial-gradient(circle at top right, {rx.color('accent', 2)}, {rx.color('mauve', 1)});",
